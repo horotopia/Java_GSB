@@ -1,5 +1,5 @@
 # Gsb_Java
 PPE BTS sio SLAM
-Xav : 
+Xav : Salut les BG ;)
 Stef : 
 Lau : 
