@@ -18,7 +18,7 @@ public class Connect
         this.db_url = "jdbc:mysql://localhost/gsb";
         this.user = "root";
         this.pwd = "root";
-        this.query = "SELECT id, libelle FROM etat";
+        this.query = "SELECT pra_nom, pra_prenom FROM visiteur";
     }
 
     public void setConnect(String driver,String db_url,String user,String pwd)
@@ -36,6 +36,13 @@ public class Connect
     public void setQuery(String query) {
         this.query = query;
         System.out.println(this.query);
+    }
+
+    public void test()
+    {
+        this.setQuery("SELECT pra_nom, pra_prenom FROM visiteur");
+        resultReq = this.requete(query);
+        System.out.println(resultReq);
     }
 
     public String requete(String query)
