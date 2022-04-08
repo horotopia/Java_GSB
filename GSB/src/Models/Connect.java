@@ -1,24 +1,22 @@
 package Models;
 
 import java.sql.*;
+import java.util.*;
 
 public class Connect
 {
 
-    private String driver;
-    private String db_url;
-    private String user;
-    private String pwd;
-    private String query;
-    private String resultReq ="";
+    private String driver, db_url, user, pwd, query;
+    private String resultReq;
+    private Connection conn;
 
     public Connect()
     {
         this.driver = "com.mysql.cj.jdbc.Driver";
-        this.db_url = "jdbc:mysql://localhost/gsb";
+        this.db_url = "jdbc:mysql://localhost/GSB";
         this.user = "root";
         this.pwd = "root";
-        this.query = "SELECT pra_nom, pra_prenom FROM visiteur";
+        this.query = "SELECT VIS_NOM, VIS_PRENOM FROM visiteur";
     }
 
     public void setConnect(String driver,String db_url,String user,String pwd)
@@ -38,37 +36,55 @@ public class Connect
         System.out.println(this.query);
     }
 
-    public void test()
-    {
-        this.setQuery("SELECT pra_nom, pra_prenom FROM visiteur");
-        resultReq = this.requete(query);
-        System.out.println(resultReq);
+    public Connection connect() {
+        // Open a connection
+        if (conn == null) {
+            try {
+                Class.forName(this.driver);
+                this.conn = DriverManager.getConnection(this.db_url, this.user, this.pwd);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Connexion DB ok");
+        return conn;
     }
 
-    public String requete(String query)
-    {
-        // Open a connection
-        try
-        {
-            Class.forName(this.driver);
-            Connection conn = DriverManager.getConnection(this.db_url, this.user, this.pwd);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            // Extract data from result set
-            while (rs.next())
-            {
-                // Retrieve by column name
-                System.out.println("Libellé : " + rs.getString("libelle"));
-                System.out.println("id : " + rs.getString("id"));
-                System.out.println();
-                resultReq = resultReq+("Libellé : " + rs.getString("libelle")+"\n"+
-                        "id : " + rs.getString("id")+"\n\n");
-            }
-            return resultReq;
+    public ResultSet requete(String query) {
+        ResultSet rs = null;
+        try {
+            Statement stmt = conn.createStatement(
+                                            ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                            ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        catch (SQLException e)
-        {   return String.valueOf(e);  }
-        catch (ClassNotFoundException e)
-        {   return String.valueOf(e);  }
+//        resultReq = render(rs);
+        return rs;
     }
+
+//    public String[] render(ResultSet rs) {
+//        resultReq = new ArrayList<String>();
+//        try {
+//            while (rs.next()) {
+//                // Retrieve by column name
+//                System.out.println("Nom du visiteur : " + rs.getString("vis_nom"));
+//                System.out.println("prenom du visiteur : " + rs.getString("vis_prenom"));
+//                System.out.println();
+//                this.resultReq.add();
+//            }
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//            return resultReq;
+//        }
+//    }
+    public void test()
+    {
+        // sert à tester
+    }
+
 }
