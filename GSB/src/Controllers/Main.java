@@ -3,8 +3,18 @@ package Controllers;
 import Views.Test;
 
 public class Main {
+
+    private static MainLeo leo;
+    private static MainStef stef;
+    private static MainLau lau;
+    private static MainXav xav;
+
     public static void main(String[] args) {
-        Test t1 = new Test();
-        t1.test();
+
+        xav = new MainXav();
+        lau = new MainLau();
+        stef = new MainStef();
+        leo = new MainLeo();
+
     }
 }
