@@ -1,7 +1,5 @@
 package Controllers;
 
-import Views.Test;
-
 public class Main {
 
     private static MainLeo leo;
