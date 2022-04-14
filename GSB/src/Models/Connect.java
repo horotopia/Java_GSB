@@ -67,14 +67,12 @@ public class Connect
     }
 
 //    public String[] render(ResultSet rs) {
-//        resultReq = new ArrayList<String>();
 //        try {
 //            while (rs.next()) {
 //                // Retrieve by column name
 //                System.out.println("Nom du visiteur : " + rs.getString("vis_nom"));
 //                System.out.println("prenom du visiteur : " + rs.getString("vis_prenom"));
 //                System.out.println();
-//                this.resultReq.add();
 //            }
 //        }
 //        catch (SQLException e) {

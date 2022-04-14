@@ -3,7 +3,7 @@ package Views;
 import javax.swing.*;
 import Models.Connect;
 
-public class Test extends JFrame {
+public class CptRendu extends JFrame {
     private JButton fermerButton;
     private JButton nouveauButton;
     private JButton suivantButton;
@@ -19,7 +19,7 @@ public class Test extends JFrame {
     private Connect con;
 
     public void test() {
-        this.setContentPane(new Test().pan);
+        this.setContentPane(new CptRendu().pan);
         this.setTitle("Gestion des comptes rendus");
         this.setSize(800,600);
         this.setVisible(true);
