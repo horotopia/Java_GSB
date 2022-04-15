@@ -1,7 +1,6 @@
-package Views;
+package Content;
 
 import javax.swing.*;
-import Models.Connect;
 
 public class CptRendu extends JFrame {
     private JButton fermerButton;

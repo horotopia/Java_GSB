@@ -1,6 +1,4 @@
-package Controllers;
-
-import Models.Connect;
+package Content;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
