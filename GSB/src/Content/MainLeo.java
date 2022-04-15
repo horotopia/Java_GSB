@@ -8,6 +8,7 @@ public class MainLeo {
     private Connect con;
     private ResultSet rs;
     private String resultReq;
+    private CptRendu CptRendu;
 
     public MainLeo() {
         System.out.println("Leo et les bas");

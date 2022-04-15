@@ -1,26 +1,20 @@
 package Content;
 
 import java.sql.*;
-import java.util.*;
 
-public class Connect
-{
+public class Connect {
 
     private String driver, db_url, user, pwd, query;
-    private String resultReq;
     private Connection conn;
 
-    public Connect()
-    {
+    public Connect() {
         this.driver = "com.mysql.cj.jdbc.Driver";
         this.db_url = "jdbc:mysql://localhost/GSB";
         this.user = "root";
         this.pwd = "root";
-        this.query = "SELECT VIS_NOM, VIS_PRENOM FROM visiteur";
     }
 
-    public void setConnect(String driver,String db_url,String user,String pwd)
-    {
+    public void setConnect(String driver, String db_url, String user, String pwd) {
         this.driver = driver;
         this.db_url = db_url;
         this.user = user;
@@ -48,7 +42,7 @@ public class Connect
                 e.printStackTrace();
             }
         }
-        System.out.println("Connexion DB ok");
+        System.out.println("Connexion DataBase ok");
         return conn;
     }
 
@@ -56,33 +50,12 @@ public class Connect
         ResultSet rs = null;
         try {
             Statement stmt = conn.createStatement(
-                                            ResultSet.TYPE_SCROLL_INSENSITIVE,
-                                            ResultSet.CONCUR_UPDATABLE);
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             rs = stmt.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        resultReq = render(rs);
         return rs;
     }
-
-//    public String[] render(ResultSet rs) {
-//        try {
-//            while (rs.next()) {
-//                // Retrieve by column name
-//                System.out.println("Nom du visiteur : " + rs.getString("vis_nom"));
-//                System.out.println("prenom du visiteur : " + rs.getString("vis_prenom"));
-//                System.out.println();
-//            }
-//        }
-//        catch (SQLException e) {
-//            e.printStackTrace();
-//            return resultReq;
-//        }
-//    }
-    public void test()
-    {
-        // sert à tester
-    }
-
 }

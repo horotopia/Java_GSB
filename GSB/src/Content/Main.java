@@ -6,6 +6,10 @@ public class Main {
     private static MainStef stef;
     private static MainLau lau;
     private static MainXav xav;
+    public static Multi test;
+    public static Multi test2;
+    private static Login login;
+    private static Menu menu;
 
     public static void main(String[] args) {
 
@@ -13,6 +17,13 @@ public class Main {
         lau = new MainLau();
         stef = new MainStef();
         leo = new MainLeo();
+
+//        test = new Multi();
+//        test2 = new Multi();
+
+        login = new Login();
+
+
 
     }
 }

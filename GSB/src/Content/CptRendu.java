@@ -1,6 +1,7 @@
 package Content;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class CptRendu extends JFrame {
     private JButton fermerButton;
@@ -17,13 +18,16 @@ public class CptRendu extends JFrame {
     private JPanel pan;
     private Connect con;
 
-    public void test() {
-        this.setContentPane(new CptRendu().pan);
+    public CptRendu() {
+        pan = new JPanel();
         this.setTitle("Gestion des comptes rendus");
         this.setSize(800,600);
+        Container CptRd = getContentPane();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.con = new Connect();
+        this.add(fermerButton);
+//        this.con = new Connect();
+//        return this;
     }
 
 
