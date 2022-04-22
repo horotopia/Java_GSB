@@ -13,30 +13,15 @@ public class Login extends JFrame{
     private JLabel mdp;
     private JButton quitterButton;
     private JLabel id;
-    private JPanel loginPan;
+    public JPanel loginPan;
 
     public Login() {
         super("Login");
-//        setTitle("Login2");
         setSize(640,480);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Container loginFenetre = getContentPane();
-        BorderLayout flow1 = new BorderLayout();
-        loginFenetre.setLayout(flow1);
 
-        loginPan = new JPanel();
-
-        loginPan.add(okButton);
-        loginPan.add(inditent);
-        loginPan.add(idField);
-        loginPan.add(mdpField);
-        loginPan.add(mdp);
-        loginPan.add(quitterButton);
-        loginPan.add(id);
-        loginFenetre.add(loginPan,BorderLayout.NORTH);
-
-        setContentPane(loginFenetre);
-
+        setContentPane(loginPan);
+        pack();
         setVisible(true);
 
         quitterButton.addActionListener(new ActionListener() {
@@ -45,5 +30,27 @@ public class Login extends JFrame{
                 System.exit(0);
             }
         });
+        okButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Menu();
+                remove();
+//                JFrame frame = new JFrame("Menu");
+//                frame.setContentPane(new Menu().pany);
+//                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                frame.pack();
+//                frame.setVisible(true);
+//                remove();
+            }
+        });
     }
+    public void remove() {
+        this.dispose();
+    }
+
 }

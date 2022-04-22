@@ -1,5 +1,7 @@
 package Content;
 
+import javax.swing.*;
+
 public class Main {
 
     private static MainLeo leo;
@@ -8,7 +10,6 @@ public class Main {
     private static MainXav xav;
     public static Multi test;
     public static Multi test2;
-    private static Login login;
     private static Menu menu;
 
     public static void main(String[] args) {
@@ -18,10 +19,17 @@ public class Main {
         stef = new MainStef();
         leo = new MainLeo();
 
+        new Login();
+//        JFrame frame = new JFrame("Login");
+//        frame.setContentPane(new Login().loginPan);
+//        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        frame.pack();
+//        frame.setVisible(true);
+
 //        test = new Multi();
 //        test2 = new Multi();
 
-        login = new Login();
+//        login = new toto();
 
 
 

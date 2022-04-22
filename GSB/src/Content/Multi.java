@@ -43,15 +43,15 @@ public class Multi extends JFrame {
 
         pan1.add(bouton);
         pan1.add(button1);
-        fene1.add(pan1,BorderLayout.NORTH);
+        fene1.add(pan1,BorderLayout.NORTH); // d"
 
         setContentPane(fene1);
         setVisible(true);
         button1.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                test1 = new CptRendu();
-                remove();
+            public void actionPerformed(ActionEvent e) { //l'action appel une new fenetre et ferme multi
+                test1 = new CptRendu(); //CompteRendu
+                remove();//fonction this.dispose
             }
         });
     }
@@ -62,5 +62,6 @@ public class Multi extends JFrame {
 
     public void remove() {
         this.dispose();
-    }
+    } //c'est comme ça qu'on a fait
+
 }
