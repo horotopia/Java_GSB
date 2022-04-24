@@ -36,13 +36,11 @@ public class Connect {
             try {
                 Class.forName(this.driver);
                 this.conn = DriverManager.getConnection(this.db_url, this.user, this.pwd);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
+                System.out.println("Connexion DataBase ok");
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("Connexion DataBase ok");
         return conn;
     }
 
@@ -52,6 +50,7 @@ public class Connect {
             Statement stmt = conn.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
+
             rs = stmt.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();

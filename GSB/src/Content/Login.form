@@ -24,7 +24,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="4e7b9" class="javax.swing.JLabel" binding="inditent">
+          <component id="4e7b9" class="javax.swing.JLabel">
             <constraints>
               <grid row="1" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -52,7 +52,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="385e8" class="javax.swing.JLabel" binding="id">
+          <component id="385e8" class="javax.swing.JLabel">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -60,7 +60,7 @@
               <text value="Identifiant"/>
             </properties>
           </component>
-          <component id="29a55" class="javax.swing.JLabel" binding="mdp">
+          <component id="29a55" class="javax.swing.JLabel">
             <constraints>
               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -82,6 +82,17 @@
             </constraints>
             <properties>
               <text value="Quitter"/>
+            </properties>
+          </component>
+          <component id="d10" class="javax.swing.JLabel" binding="errorMessage">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <foreground color="-4518635"/>
+              <text value="Label"/>
+              <visible value="false"/>
             </properties>
           </component>
         </children>

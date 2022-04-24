@@ -1,14 +1,16 @@
 package Content;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Menu extends JFrame{
-    private JCheckBox comptesRendusCheckBox;
-    private JCheckBox visiteursCheckBox;
-    private JCheckBox praticiensCheckBox;
-    private JCheckBox medicamentsCheckBox;
-    private JCheckBox quitterCheckBox;
     public JPanel pany;
+    private JButton comptesRendusButton;
+    private JButton visiteursButton;
+    private JButton praticiensButton;
+    private JButton medicamentsButton;
+    private JButton quitterButton;
 
     public Menu(){
         super("Login");
@@ -17,5 +19,14 @@ public class Menu extends JFrame{
         setContentPane(pany);
         pack();
         setVisible(true);
+
+
+        quitterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
+
 }
