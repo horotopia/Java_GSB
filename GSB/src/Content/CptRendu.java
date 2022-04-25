@@ -2,6 +2,8 @@ package Content;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CptRendu extends JFrame {
     private JButton fermerButton;
@@ -19,15 +21,31 @@ public class CptRendu extends JFrame {
     private Connect con;
 
     public CptRendu() {
+        setVisible(true);
+        setSize(640,480);
+        add(pan);
+        /*
         pan = new JPanel();
         this.setTitle("Gestion des comptes rendus");
         this.setSize(800,600);
         Container CptRd = getContentPane();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.add(fermerButton);
+        this.add(pan);
+         */
 //        this.con = new Connect();
 //        return this;
+        fermerButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
     }
 
 
