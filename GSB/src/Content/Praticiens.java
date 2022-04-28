@@ -1,6 +1,8 @@
 package Content;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -21,6 +23,7 @@ public class Praticiens extends JFrame{
     private JComboBox comboBox1;
     private JPanel praPan;
     private ResultSet rs;
+    private String statut;
 
     public Praticiens() {
         super("PRATICIENS");
@@ -32,12 +35,31 @@ public class Praticiens extends JFrame{
         setVisible(true);
 
         try {
+            statut = "next";
             rs = getTablePraticien();
             getComboboxId(rs);
-            getInfoPraticien(rs);
+            getInfoPraticien(rs, statut);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        suivantButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    statut = "next";
+                    getInfoPraticien(rs, statut);
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        fermerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
     }
 
     private ResultSet getTablePraticien() {
@@ -57,7 +79,7 @@ public class Praticiens extends JFrame{
     private void getComboboxId(ResultSet rs) {
     }
 
-    private void getInfoPraticien(ResultSet rs) throws SQLException {
+    private void getInfoPraticien(ResultSet rs, String statut) throws SQLException {
         rs.next();
         textField2.setText(rs.getString("PRA_NUM"));
         textField3.setText(rs.getString("PRA_NOM"));

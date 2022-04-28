@@ -16,7 +16,6 @@ public class Login extends JFrame{
     private JButton quitterButton;
     public JPanel loginPan;
     private JLabel errorMessage;
-    private ResultSet data;
     private String id;
     private String mdp;
 
