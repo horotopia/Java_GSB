@@ -27,6 +27,60 @@ public class Menu extends JFrame{
                 System.exit(0);
             }
         });
+
+        comptesRendusButton.addActionListener(new ActionListener() {
+            /**
+             *
+             * La methode actionPerformed décrit l'action se déroulant lors du clic sur le bouton.
+             * Lors du clic sur le bouton "Comptes Rendus", la vue compte rendu va s'ouvrir dans une nouvelle fenêtre.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CptRendu();
+            }
+        });
+
+        visiteursButton.addActionListener(new ActionListener() {
+            /**
+             *
+             * La methode actionPerformed décrit l'action se déroulant lors du clic sur le bouton.
+             * Lors du clic sur le bouton "Visiteurs", la vue Visiteurs va s'ouvrir dans une nouvelle fenêtre.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Visiteurs();
+            }
+        });
+        praticiensButton.addActionListener(new ActionListener() {
+            /**
+             *
+             * La methode actionPerformed décrit l'action se déroulant lors du clic sur le bouton.
+             * Lors du clic sur le bouton "Visiteurs", la vue Visiteurs va s'ouvrir dans une nouvelle fenêtre.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Praticiens();
+            }
+        });
+        medicamentsButton.addActionListener(new ActionListener() {
+            /**
+             *
+             * La methode actionPerformed décrit l'action se déroulant lors du clic sur le bouton.
+             * Lors du clic sur le bouton "Visiteurs", la vue Visiteurs va s'ouvrir dans une nouvelle fenêtre.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Medicaments();
+            }
+        });
     }
 
 }
