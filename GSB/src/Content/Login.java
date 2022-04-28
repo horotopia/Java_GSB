@@ -49,7 +49,7 @@ public class Login extends JFrame{
 
                     if (isValidUser(id, mdp)) {
                         new Menu();
-                        remove();
+                        dispose();
                     }
                     else{
                         errorMessage.setVisible(true);
@@ -75,17 +75,13 @@ public class Login extends JFrame{
                 String query = "SELECT count(*) FROM visiteur WHERE VIS_NOM='" + id + "' AND VIS_DATEEMBAUCHE='" + mdp + "'";
                 System.out.println(query);
 
-                ResultSet ResultRequest = con.requete(query);
-                ResultRequest.next();
-                boolean isValidUser = ResultRequest.getInt(1) > 0;
+                ResultSet resultRequest = con.requete(query);
+                resultRequest.next();
+                boolean isValidUser = resultRequest.getInt(1) > 0;
                 System.out.println("result = "+ isValidUser);
                 System.out.println();
                 return isValidUser;
             }
         });
     }
-    public void remove() {
-        this.dispose();
-    }
-
 }

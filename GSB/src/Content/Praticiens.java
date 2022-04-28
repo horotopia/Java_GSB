@@ -1,8 +1,11 @@
 package Content;
 
 import javax.swing.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
 
-public class Praticiens {
+public class Praticiens extends JFrame{
     private JButton OKButton;
     private JTextField textField2;
     private JTextField textField3;
@@ -16,4 +19,53 @@ public class Praticiens {
     private JButton suivantButton;
     private JTextField textField9;
     private JComboBox comboBox1;
+    private JPanel praPan;
+    private ResultSet rs;
+
+    public Praticiens() {
+        super("PRATICIENS");
+        setSize(640, 480);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        setContentPane(praPan);
+        pack();
+        setVisible(true);
+
+        try {
+            rs = getTablePraticien();
+            getComboboxId(rs);
+            getInfoPraticien(rs);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private ResultSet getTablePraticien() {
+        Connect con = new Connect();
+        con.connect();
+
+        String query = "SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE, PRA_COEFNOTORIETE, " +
+                "type_praticien.TYP_CODE AS CODE, type_praticien.TYP_LIBELLE AS LIBELLE FROM praticien " +
+                "INNER JOIN type_praticien ON type_praticien.TYP_CODE = praticien.TYP_CODE";
+        System.out.println(query);
+
+        ResultSet resultRequest = con.requete(query);
+        return resultRequest;
+
+    }
+
+    private void getComboboxId(ResultSet rs) {
+    }
+
+    private void getInfoPraticien(ResultSet rs) throws SQLException {
+        rs.next();
+        textField2.setText(rs.getString("PRA_NUM"));
+        textField3.setText(rs.getString("PRA_NOM"));
+        textField4.setText(rs.getString("PRA_PRENOM"));
+        textField5.setText(rs.getString("PRA_ADRESSE"));
+        textField6.setText(rs.getString("PRA_CP"));
+        textField9.setText(rs.getString("PRA_VILLE"));
+        textField7.setText(rs.getString("PRA_COEFNOTORIETE"));
+        textField8.setText(rs.getString("LIBELLE"));
+    }
 }

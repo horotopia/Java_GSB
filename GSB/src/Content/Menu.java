@@ -13,9 +13,9 @@ public class Menu extends JFrame{
     private JButton quitterButton;
 
     public Menu(){
-        super("Login");
+        super("Menu");
         setSize(640,480);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(pany);
         pack();
         setVisible(true);
