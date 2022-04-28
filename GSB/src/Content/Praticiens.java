@@ -53,6 +53,17 @@ public class Praticiens extends JFrame{
                 }
             }
         });
+        précédentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    statut = "previous";
+                    getInfoPraticien(rs, statut);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
         fermerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,8 +90,17 @@ public class Praticiens extends JFrame{
     }
 
     private void getInfoPraticien(ResultSet rs, String statut) throws SQLException {
-//        if statut ==
-        rs.next();
+        if (statut =="next") {
+            if (rs.next()==false) {
+                rs.first();
+            }
+        }
+        if (statut == "previous") {
+            if (rs.previous()==false) {
+                rs.last();
+            }
+        }
+
         textField2.setText(rs.getString("PRA_NUM"));
         textField3.setText(rs.getString("PRA_NOM"));
         textField4.setText(rs.getString("PRA_PRENOM"));
