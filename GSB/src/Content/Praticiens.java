@@ -48,7 +48,6 @@ public class Praticiens extends JFrame{
                 try {
                     statut = "next";
                     getInfoPraticien(rs, statut);
-
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -80,6 +79,7 @@ public class Praticiens extends JFrame{
     }
 
     private void getInfoPraticien(ResultSet rs, String statut) throws SQLException {
+//        if statut ==
         rs.next();
         textField2.setText(rs.getString("PRA_NUM"));
         textField3.setText(rs.getString("PRA_NOM"));

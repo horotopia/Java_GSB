@@ -3,6 +3,7 @@ package Content;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Menu extends JFrame{
     public JPanel pany;
@@ -38,7 +39,11 @@ public class Menu extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CptRendu();
+                try {
+                    new CptRendu();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 

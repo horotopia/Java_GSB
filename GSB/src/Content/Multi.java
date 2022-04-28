@@ -50,7 +50,7 @@ public class Multi extends JFrame {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { //l'action appel une new fenetre et ferme multi
-                test1 = new CptRendu(); //CompteRendu
+//                test1 = new CptRendu(); //CompteRendu
                 remove();//fonction this.dispose
             }
         });
