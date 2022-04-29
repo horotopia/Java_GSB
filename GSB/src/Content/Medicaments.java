@@ -22,6 +22,7 @@ public class Medicaments extends JFrame{
     private JTextField prixTextField;
     private Connect con;
     private ResultSet rs;
+    private int page;
 
     public Medicaments() {
         super("Medicaments");
@@ -37,7 +38,10 @@ public class Medicaments extends JFrame{
             con.connect();
             rs = con.requete("SELECT MED_DEPOTLEGAL, FAM_CODE, MED_NOMCOMMERCIAL, MED_COMPOSITION, MED_EFFETS, MED_CONTREINDIC, MED_PRIXECHANTILLON FROM MEDICAMENT");
 
-            fillComboBox(con,"SELECT MED_NOMCOMMERCIAL FROM MEDICAMENT");
+            //fillComboBox(con,"SELECT FAM_CODE FROM MEDICAMENT");
+            page = 0;
+            fillComboBox(con,"SELECT MEDICAMENT.FAM_CODE, FAMILLE.FAM_LIBELLE FROM MEDICAMENT INNER JOIN FAMILLE ON MEDICAMENT.FAM_CODE = FAMILLE.FAM_CODE");
+
 
             rs.next();
             remplirChamps(); // remplissage initial des champs à la première ouverture de la fenêtre Medicaments
@@ -65,6 +69,8 @@ public class Medicaments extends JFrame{
                     try {
                         rs.previous();
                         remplirChamps();
+                        page = page - 1;
+                        familleComboBox.setSelectedIndex(page);
                     } catch (SQLException ex) {
                         //ex.printStackTrace();
                         try {
@@ -87,6 +93,8 @@ public class Medicaments extends JFrame{
                     try {
                         rs.next();
                         remplirChamps();
+                        page = page + 1;
+                        familleComboBox.setSelectedIndex(page);
                     } catch (SQLException ex) {
                         //ex.printStackTrace();
                         try {
@@ -111,8 +119,8 @@ public class Medicaments extends JFrame{
         effetsTextArea.setWrapStyleWord(true);
 
         codeTextField.setText(rs.getString("MED_DEPOTLEGAL"));
-        nomComTextField.setText(rs.getString("FAM_CODE"));
-        familleComboBox.setSelectedItem(rs.getString("MED_NOMCOMMERCIAL"));
+        nomComTextField.setText(rs.getString("MED_NOMCOMMERCIAL"));
+        //familleComboBox.setSelectedItem(rs.getString("FAM_LIBELLE"));
         compoTextField.setText(rs.getString("MED_COMPOSITION"));
         effetsTextArea.setText(rs.getString("MED_EFFETS"));
         contreIndTextArea.setText(rs.getString("MED_CONTREINDIC"));
@@ -125,7 +133,7 @@ public class Medicaments extends JFrame{
         String resultat ;
         ArrayList<String> liste = new ArrayList <String> ();
         while (res.next()){
-            resultat =res.getString("MED_NOMCOMMERCIAL");
+            resultat =res.getString("FAM_LIBELLE");
             liste.add(resultat);
         }
         familleComboBox.setModel(new DefaultComboBoxModel<>(liste.toArray()));
