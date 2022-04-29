@@ -22,6 +22,7 @@ public class CptRendu extends JFrame {
     private JPanel pan;
     private JPanel comboBoxPanel;
     private Connect con;
+    private String statut;
 
     public CptRendu() throws SQLException {
         comboBoxPanel = new JPanel();
@@ -65,20 +66,94 @@ public class CptRendu extends JFrame {
 
             }
         });
+        precedentButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ResultSet rs = getTablePraticien("SELECT * FROM RAPPORT_VISITE");
+                try {
+                    getInfoPraticien(rs,"previous");
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        suivantButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ResultSet rs = getTablePraticien("SELECT * FROM RAPPORT_VISITE");
+                try {
+                    getInfoPraticien(rs,"next");
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        detailsButton.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Praticiens praticiens = new Praticiens();
+            }
+        });
     }
 
     public void fillComboBox(Connect connection, String query) throws SQLException{
         ResultSet res = connection.requete(query);
         String nom, prenom, fullName ;
         ArrayList <String> listName = new ArrayList <String> ();
-        int size = 0;
         while (res.next()){
             nom = res.getString("PRA_NOM");
             prenom = res.getString("PRA_PRENOM");
             fullName = nom + " " + prenom;
             listName.add(fullName);
-            size++;
         }
         comboBox1.setModel(new DefaultComboBoxModel<>(listName.toArray()));
+    }
+
+    public void getInfoPraticien(ResultSet rs, String statut) throws SQLException {
+        if (statut =="next") {
+            if (rs.next()==false) {
+                rs.first();
+            }
+        }
+        if (statut == "previous") {
+            if (rs.previous()==false) {
+                rs.last();
+            }
+        }
+        textField1.setText(rs.getString("RAP_NUM"));
+        textField2.setText(rs.getString("RAP_DATE"));
+        textField3.setText(rs.getString("RAP_MOTIF"));
+        textArea1.setText(rs.getString("RAP_BILAN"));
+    }
+
+    public ResultSet getTablePraticien(String query) {
+        Connect con = new Connect();
+        con.connect();
+
+        /*
+        String query = "SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE, PRA_COEFNOTORIETE, " +
+                "type_praticien.TYP_CODE AS CODE, type_praticien.TYP_LIBELLE AS LIBELLE FROM praticien " +
+                "INNER JOIN type_praticien ON type_praticien.TYP_CODE = praticien.TYP_CODE";
+
+         */
+        System.out.println(query);
+
+        ResultSet resultRequest = con.requete(query);
+        return resultRequest;
     }
 }

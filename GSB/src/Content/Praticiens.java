@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 public class Praticiens extends JFrame{
     private JButton OKButton;
@@ -70,9 +71,29 @@ public class Praticiens extends JFrame{
                 dispose();
             }
         });
+        OKButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String value = comboBox1.getSelectedItem().toString();
+                String[] tabValues = value.split("\\s+");
+
+                String setQuery = "SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE, PRA_COEFNOTORIETE, " +
+                        "type_praticien.TYP_CODE AS CODE, type_praticien.TYP_LIBELLE AS LIBELLE FROM praticien " +
+                        "INNER JOIN type_praticien ON type_praticien.TYP_CODE = praticien.TYP_CODE WHERE PRA_NOM ='"+tabValues[0]+"' AND PRA_PRENOM = '"+tabValues[1]+"'";
+                ResultSet res = getTablePraticien(setQuery);
+                try {
+                    res.next();
+                    int row = res.getInt(1);
+                    statut = "";
+                    getInfoPraticien(rs, statut, row);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 
-    private ResultSet getTablePraticien() {
+    public ResultSet getTablePraticien() {
         Connect con = new Connect();
         con.connect();
 
@@ -83,23 +104,36 @@ public class Praticiens extends JFrame{
 
         ResultSet resultRequest = con.requete(query);
         return resultRequest;
+    }
+    public ResultSet getTablePraticien(String setQuery) {
+        Connect con = new Connect();
+        con.connect();
 
+        String query = setQuery;
+        System.out.println(query);
+
+        ResultSet resultRequest = con.requete(query);
+        return resultRequest;
     }
 
-    private void getComboboxId(ResultSet rs) {
+    private void getComboboxId(ResultSet rs) throws SQLException {
+        fillComboBox(rs);
     }
 
     private void getInfoPraticien(ResultSet rs, String statut) throws SQLException {
         if (statut =="next") {
+            System.out.println("suivant");
             if (rs.next()==false) {
                 rs.first();
             }
         }
         if (statut == "previous") {
+            System.out.println("précédent");
             if (rs.previous()==false) {
                 rs.last();
             }
         }
+
 
         textField2.setText(rs.getString("PRA_NUM"));
         textField3.setText(rs.getString("PRA_NOM"));
@@ -109,5 +143,43 @@ public class Praticiens extends JFrame{
         textField9.setText(rs.getString("PRA_VILLE"));
         textField7.setText(rs.getString("PRA_COEFNOTORIETE"));
         textField8.setText(rs.getString("LIBELLE"));
+    }
+    private void getInfoPraticien(ResultSet rs, String statut, int row) throws SQLException {
+        if (statut =="next") {
+            System.out.println("suivant");
+            if (rs.next()==false) {
+                rs.first();
+            }
+        }
+        if (statut == "previous") {
+            System.out.println("précédent");
+            if (rs.previous()==false) {
+                rs.last();
+            }
+        }
+        else
+            rs.absolute(row);
+        System.out.println(rs.getString("PRA_NUM"));
+
+
+        textField2.setText(rs.getString("PRA_NUM"));
+        textField3.setText(rs.getString("PRA_NOM"));
+        textField4.setText(rs.getString("PRA_PRENOM"));
+        textField5.setText(rs.getString("PRA_ADRESSE"));
+        textField6.setText(rs.getString("PRA_CP"));
+        textField9.setText(rs.getString("PRA_VILLE"));
+        textField7.setText(rs.getString("PRA_COEFNOTORIETE"));
+        textField8.setText(rs.getString("LIBELLE"));
+    }
+    public void fillComboBox(ResultSet rs) throws SQLException{
+        ArrayList<String> listName = new ArrayList<String>();
+
+        while (rs.next()){
+            String nom = rs.getString("PRA_NOM");
+            String prenom = rs.getString("PRA_PRENOM");
+            String fullName = nom + " " + prenom;
+            listName.add(fullName);
+        }
+        comboBox1.setModel(new DefaultComboBoxModel<>(listName.toArray()));
     }
 }
