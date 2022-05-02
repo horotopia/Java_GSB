@@ -11,7 +11,7 @@ public class MainLeo {
     private CptRendu CptRendu;
 
     public MainLeo() {
-        System.out.println("Leo et les bas");
+
         con = new Connect();
         con.connect();
         rs = con.requete("SELECT LAB_NOM, LAB_CHEFVENTE FROM labo");

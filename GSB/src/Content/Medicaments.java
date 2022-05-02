@@ -23,28 +23,29 @@ public class Medicaments extends JFrame{
     private Connect con;
     private ResultSet rs;
     private int page;
+    private String statut;
 
     public Medicaments() {
         super("Medicaments");
         setSize(800,600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setContentPane(mediPan);
-        //pack();
+//        pack();
         setVisible(true);
 
         try {
 
             con = new Connect();
             con.connect();
-            rs = con.requete("SELECT MED_DEPOTLEGAL, FAM_CODE, MED_NOMCOMMERCIAL, MED_COMPOSITION, MED_EFFETS, MED_CONTREINDIC, MED_PRIXECHANTILLON FROM MEDICAMENT");
+            rs = con.requete("SELECT MED_DEPOTLEGAL, MEDICAMENT.FAM_CODE as fcode, FAMILLE.FAM_LIBELLE as libelle, MED_NOMCOMMERCIAL, MED_COMPOSITION, MED_EFFETS, MED_CONTREINDIC, MED_PRIXECHANTILLON FROM MEDICAMENT INNER JOIN FAMILLE ON MEDICAMENT.FAM_CODE = FAMILLE.FAM_CODE");
 
             //fillComboBox(con,"SELECT FAM_CODE FROM MEDICAMENT");
-            page = 0;
+//            page = 0;
             fillComboBox(con,"SELECT MEDICAMENT.FAM_CODE, FAMILLE.FAM_LIBELLE FROM MEDICAMENT INNER JOIN FAMILLE ON MEDICAMENT.FAM_CODE = FAMILLE.FAM_CODE");
 
 
-            rs.next();
-            remplirChamps(); // remplissage initial des champs à la première ouverture de la fenêtre Medicaments
+//            rs.next();
+            remplirChamps(rs,"next"); // remplissage initial des champs à la première ouverture de la fenêtre Medicaments
 
             fermerButton.addActionListener(new ActionListener() {
                 /**
@@ -67,18 +68,24 @@ public class Medicaments extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        rs.previous();
-                        remplirChamps();
-                        page = page - 1;
-                        familleComboBox.setSelectedIndex(page);
+                        statut = "previous";
+                        remplirChamps(rs, statut);
                     } catch (SQLException ex) {
-                        //ex.printStackTrace();
-                        try {
-                            rs.last();
-                        } catch (SQLException exc) {
-                            //exc.printStackTrace();
-                        }
+                        ex.printStackTrace();
                     }
+//                    try {
+//                        rs.previous();
+//                        remplirChamps();
+//                        page = page - 1;
+//                        familleComboBox.setSelectedIndex(page);
+//                    } catch (SQLException ex) {
+//                        //ex.printStackTrace();
+//                        try {
+//                            rs.last();
+//                        } catch (SQLException exc) {
+//                            //exc.printStackTrace();
+//                        }
+//                    }
                 }
             });
 
@@ -91,18 +98,24 @@ public class Medicaments extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        rs.next();
-                        remplirChamps();
-                        page = page + 1;
-                        familleComboBox.setSelectedIndex(page);
+                        statut = "next";
+                        remplirChamps(rs, statut);
                     } catch (SQLException ex) {
-                        //ex.printStackTrace();
-                        try {
-                            rs.first();
-                        } catch (SQLException exc) {
-                            //exc.printStackTrace();
-                        }
+                        ex.printStackTrace();
                     }
+//                    try {
+//                        rs.next();
+//                        remplirChamps();
+//                        page = page + 1;
+//                        familleComboBox.setSelectedIndex(page);
+//                    } catch (SQLException ex) {
+//                        //ex.printStackTrace();
+//                        try {
+//                            rs.first();
+//                        } catch (SQLException exc) {
+//                            //exc.printStackTrace();
+//                        }
+//                    }
                 }
             });
 
@@ -113,16 +126,34 @@ public class Medicaments extends JFrame{
 
     }
 
-    public void remplirChamps() throws SQLException {
+    public void remplirChamps(ResultSet rs, String statut) throws SQLException {
+
+        if (statut =="next") {
+            System.out.println("suivant");
+//            page = page + 1;
+            if (rs.next()==false) {
+                rs.first();
+            }
+        }
+        if (statut == "previous") {
+            System.out.println("précédent");
+//            page = page - 1;
+            if (rs.previous()==false) {
+                rs.last();
+            }
+        }
 
         effetsTextArea.setLineWrap(true);
         effetsTextArea.setWrapStyleWord(true);
 
         codeTextField.setText(rs.getString("MED_DEPOTLEGAL"));
         nomComTextField.setText(rs.getString("MED_NOMCOMMERCIAL"));
-        //familleComboBox.setSelectedItem(rs.getString("FAM_LIBELLE"));
+        familleComboBox.setSelectedItem(rs.getString("libelle"));
+//        familleComboBox.setSelectedIndex(page);
         compoTextField.setText(rs.getString("MED_COMPOSITION"));
+        effetsTextArea.setLineWrap(true);
         effetsTextArea.setText(rs.getString("MED_EFFETS"));
+        contreIndTextArea.setLineWrap(true);
         contreIndTextArea.setText(rs.getString("MED_CONTREINDIC"));
         prixTextField.setText(rs.getString("MED_PRIXECHANTILLON"));
 

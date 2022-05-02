@@ -32,7 +32,7 @@ public class Praticiens extends JFrame{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         setContentPane(praPan);
-        pack();
+//        pack();
         setVisible(true);
 
         try {
