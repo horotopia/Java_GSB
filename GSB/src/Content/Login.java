@@ -48,13 +48,18 @@ public class Login extends JFrame{
                     mdp = String.valueOf(mdpField.getPassword());
                     id = idField.getText();
 
-                    if (isValidUser(id, mdp)) { // Verifier connexion
+                    String mode ="off";
+                    if(mode=="on") {
+                        if (isValidUser(id, mdp)) { // Verifier connexion
+                            new Menu(); // génèrer menu
+                            remove(); // fermer
+                        } else {
+                            errorMessage.setVisible(true); // rend visible msg erreur
+                            errorMessage.setText("identifiant ou mot de passe invalide"); //msg erreur
+                        }
+                    } else {
                         new Menu(); // génèrer menu
                         remove(); // fermer
-                    }
-                    else{
-                        errorMessage.setVisible(true); // rend visible msg erreur
-                        errorMessage.setText("identifiant ou mot de passe invalide"); //msg erreur
                     }
                 }
                 catch (SQLException | ParseException ex) { // attrape exception

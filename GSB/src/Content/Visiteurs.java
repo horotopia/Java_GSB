@@ -53,9 +53,13 @@ public class Visiteurs extends JFrame{
                 String value = comboBox1.getSelectedItem().toString();
                 String[] tabValues = value.split("\\s+");
 
-                String setQuery = "SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE, PRA_COEFNOTORIETE, " +
-                        "type_praticien.TYP_CODE AS CODE, type_praticien.TYP_LIBELLE AS LIBELLE FROM praticien " +
-                        "INNER JOIN type_praticien ON type_praticien.TYP_CODE = praticien.TYP_CODE WHERE PRA_NOM ='"+tabValues[0]+"' AND PRA_PRENOM = '"+tabValues[1]+"'";
+                String setQuery = "SELECT VIS_MATRICULE, VIS_NOM, Vis_PRENOM, VIS_ADRESSE, VIS_CP, VIS_VILLE, " +
+                        "VIS_DATEEMBAUCHE, secteur.SEC_CODE, secteur.SEC_LIBELLE AS secteur, " +
+                        "labo.LAB_CODE, labo.LAB_NOM AS labNom FROM visiteur " +
+                        "JOIN secteur ON secteur.SEC_CODE = visiteur.SEC_CODE " +
+                        "JOIN labo ON labo.LAB_CODE = visiteur.LAB_CODE " +
+                        "WHERE VIS_NOM ='"+tabValues[0]+"' AND VIS_PRENOM = '"+tabValues[1]+"'";
+
                 ResultSet res = getTableVisiteur(setQuery);
                 try {
                     res.next();
@@ -127,11 +131,11 @@ public class Visiteurs extends JFrame{
         }
 
 
-        textField1.setText(rs.getString("PRA_NUM"));
-        textField2.setText(rs.getString("PRA_NUM"));
-        textField3.setText(rs.getString("PRA_NOM"));
-        textField4.setText(rs.getString("PRA_PRENOM"));
-        textField5.setText(rs.getString("PRA_ADRESSE"));
+        textField1.setText(rs.getString("VIS_NOM"));
+        textField2.setText(rs.getString("VIS_PRENOM"));
+        textField3.setText(rs.getString("VIS_ADRESSE"));
+        textField4.setText(rs.getString("VIS_CP"));
+        textField5.setText(rs.getString("VIS_VILLE"));
     }
     private void getInfoVisiteur(ResultSet rs, String statut, int row) throws SQLException{
         if (statut =="next") {
@@ -151,11 +155,11 @@ public class Visiteurs extends JFrame{
         System.out.println(rs.getString("PRA_NUM"));
 
 
-        textField1.setText(rs.getString("PRA_NUM"));
-        textField2.setText(rs.getString("PRA_NUM"));
-        textField3.setText(rs.getString("PRA_NOM"));
-        textField4.setText(rs.getString("PRA_PRENOM"));
-        textField5.setText(rs.getString("PRA_ADRESSE"));
+        textField1.setText(rs.getString("VIS_NOM"));
+        textField2.setText(rs.getString("VIS_PRENOM"));
+        textField3.setText(rs.getString("VIS_ADRESSE"));
+        textField4.setText(rs.getString("VIS_CP"));
+        textField5.setText(rs.getString("VIS_VILLE"));
     }
 
     private void getComboboxId(ResultSet rs) throws SQLException{
@@ -182,9 +186,11 @@ public class Visiteurs extends JFrame{
         Connect con = new Connect();
         con.connect();
 
-        String query = "SELECT PRA_NUM, PRA_NOM, PRA_PRENOM, PRA_ADRESSE, PRA_CP, PRA_VILLE, PRA_COEFNOTORIETE, " +
-                "type_praticien.TYP_CODE AS CODE, type_praticien.TYP_LIBELLE AS LIBELLE FROM praticien " +
-                "INNER JOIN type_praticien ON type_praticien.TYP_CODE = praticien.TYP_CODE";
+        String query ="SELECT VIS_MATRICULE, VIS_NOM, Vis_PRENOM, VIS_ADRESSE, VIS_CP, VIS_VILLE, VIS_DATEEMBAUCHE, " +
+                "secteur.SEC_CODE, secteur.SEC_LIBELLE AS secteur, labo.LAB_CODE, " +
+                "labo.LAB_NOM AS labNom FROM visiteur JOIN secteur ON secteur.SEC_CODE = visiteur.SEC_CODE " +
+                "JOIN labo ON labo.LAB_CODE = visiteur.LAB_CODE";
+
         System.out.println(query);
 
         ResultSet resultRequest = con.requete(query);
