@@ -48,7 +48,7 @@ public class Login extends JFrame{
                     mdp = String.valueOf(mdpField.getPassword());
                     id = idField.getText();
 
-                    String mode ="off";
+                    String mode ="on";
                     if(mode=="on") {
                         if (isValidUser(id, mdp)) { // Verifier connexion
                             new Menu(); // génèrer menu

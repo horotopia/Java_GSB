@@ -53,7 +53,7 @@ public class Visiteurs extends JFrame{
                 String value = comboBox1.getSelectedItem().toString();
                 String[] tabValues = value.split("\\s+");
 
-                String setQuery = "SELECT VIS_MATRICULE, VIS_NOM, Vis_PRENOM, VIS_ADRESSE, VIS_CP, VIS_VILLE, " +
+                String setQuery = "SELECT count(VIS_MATRICULE), VIS_NOM, Vis_PRENOM, VIS_ADRESSE, VIS_CP, VIS_VILLE, " +
                         "VIS_DATEEMBAUCHE, secteur.SEC_CODE, secteur.SEC_LIBELLE AS secteur, " +
                         "labo.LAB_CODE, labo.LAB_NOM AS labNom FROM visiteur " +
                         "JOIN secteur ON secteur.SEC_CODE = visiteur.SEC_CODE " +
@@ -152,7 +152,7 @@ public class Visiteurs extends JFrame{
         }
         else
             rs.absolute(row);
-        System.out.println(rs.getString("PRA_NUM"));
+        System.out.println(rs.getString("VIS_MATRICULE"));
 
 
         textField1.setText(rs.getString("VIS_NOM"));
@@ -160,6 +160,9 @@ public class Visiteurs extends JFrame{
         textField3.setText(rs.getString("VIS_ADRESSE"));
         textField4.setText(rs.getString("VIS_CP"));
         textField5.setText(rs.getString("VIS_VILLE"));
+        comboBox2.setSelectedItem(rs.getString("secteur"));
+        comboBox3.setSelectedItem(rs.getString("labNom"));
+
     }
 
     private void getComboboxId(ResultSet rs) throws SQLException{
